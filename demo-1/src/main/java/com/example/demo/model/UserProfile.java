@@ -1,13 +1,13 @@
 package com.example.demo.model;
 
-public class UserProfile_test {
+public class UserProfile {
 	private String user_number;
 	private String user_name;
 	private int user_age;
 	private char user_gender;
 	private String user_spec;
 	
-	public UserProfile_test(String user_number, String user_name, int user_age, char user_gender, String user_spec) {
+	public UserProfile(String user_number, String user_name, int user_age, char user_gender, String user_spec) {
 		super();
 		this.user_number = user_number;
 		this.user_name = user_name;

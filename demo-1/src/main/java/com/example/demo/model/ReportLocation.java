@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+// report에 대한 위도/경도 정보를 포함
 public class ReportLocation {
 	private String report_code;
 	private String report_time;

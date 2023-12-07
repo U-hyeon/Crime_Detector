@@ -1,14 +1,14 @@
 package com.example.demo.model;
 
 public class ReportSpec {
-	// report_code, user_name, user_gender, user_age, report_time, user_number, user_spec, crime, manager_name, execute_time
+	// report_code, user_name, user_gender, user_age, report_time, user_number, memo, crime, manager_name, execute_time
 	private String report_code;
 	private String user_name;
 	private char user_gender;
 	private int age;
 	private String report_time;
 	private String user_number;
-	private String user_spec;
+	private String memo;
 	private String crime;
 	private String manager_name;
 	private String execute_time;
@@ -22,7 +22,7 @@ public class ReportSpec {
 		this.age = age;
 		this.report_time = report_time;
 		this.user_number = user_number;
-		this.user_spec = user_spec;
+		this.memo = user_spec;
 		this.crime = crime;
 		this.manager_name = manager_name;
 		this.execute_time = execute_time;
@@ -63,11 +63,11 @@ public class ReportSpec {
 	public void setUser_number(String user_number) {
 		this.user_number = user_number;
 	}
-	public String getUser_spec() {
-		return user_spec;
+	public String getMemo() {
+		return memo;
 	}
-	public void setUser_spec(String user_spec) {
-		this.user_spec = user_spec;
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 	public String getCrime() {
 		return crime;

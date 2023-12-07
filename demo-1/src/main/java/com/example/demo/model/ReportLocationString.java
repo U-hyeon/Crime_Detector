@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+//report에 대한 reverse-geocoding 텍스트주소 포함
 public class ReportLocationString {
 	private String report_code;
 	private String report_time;

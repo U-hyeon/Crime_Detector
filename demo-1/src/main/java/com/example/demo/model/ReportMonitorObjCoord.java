@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+//google map marker에 사용될 정보
 public class ReportMonitorObjCoord {
 	private String report_code;
 	private String report_time;
@@ -10,11 +11,10 @@ public class ReportMonitorObjCoord {
 	private String name;
 	private String crime;
 	private char reporter_type;
-	
-	
+	private String  memo;
 	
 	public ReportMonitorObjCoord(String report_code, String report_time, String latitude, String longitude, char gender,
-			int age, String name, String crime, char reporter_type) {
+			int age, String name, String crime, char reporter_type, String memo) {
 		super();
 		this.report_code = report_code;
 		this.report_time = report_time;
@@ -25,9 +25,8 @@ public class ReportMonitorObjCoord {
 		this.name = name;
 		this.crime = crime;
 		this.reporter_type = reporter_type;
+		this.memo = memo;
 	}
-	
-	
 	public String getReport_code() {
 		return report_code;
 	}
@@ -82,4 +81,11 @@ public class ReportMonitorObjCoord {
 	public void setReporter_type(char reporter_type) {
 		this.reporter_type = reporter_type;
 	}
+	public String getMemo() {
+		return memo;
+	}
+	public void setMemo(String memo) {
+		this.memo = memo;
+	}
+	
 }

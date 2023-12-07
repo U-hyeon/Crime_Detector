@@ -16,7 +16,7 @@ import com.example.demo.model.ReportLocationString;
 import com.example.demo.model.ReportMonitorObj;
 import com.example.demo.model.ReportMonitorObjCoord;
 import com.example.demo.model.ReportSpec;
-import com.example.demo.model.UserProfile_test;
+import com.example.demo.model.UserProfile;
 import com.example.demo.services.geocoding;
 
 @RestController
@@ -28,14 +28,19 @@ public class UserProfileController_test {
 		this.mapper = mapper;
 	}
 	
-	@GetMapping("/user/{user_number}")
-	public UserProfile_test getUserProfile_test(@PathVariable("user_number") String user_number) {
-		return mapper.getUserProfile(user_number);
+	@GetMapping("/user/all")
+	public List<UserProfile> getUserProfileList() {
+		return mapper.getUserProfileList();
 	}
 	
-	@GetMapping("/user/all")
-	public List<UserProfile_test> getUserProfileList() {
-		return mapper.getUserProfileList();
+	@GetMapping("/user/{number}")
+	public UserProfile getUserProfile_test(@PathVariable("number") String number) {
+		return mapper.getUserProfile(number);
+	}
+
+	@PostMapping("user/{number}")
+	public void postUserProfile(@PathVariable("number") String number, @RequestParam("name") String name, @RequestParam("age") int age, @RequestParam("gender") char gender, @RequestParam("spec") String spec) {
+		mapper.updateUserProfile(number, name, age, gender, spec);
 	}
 	
 	@PutMapping("user/{number}")
@@ -43,15 +48,22 @@ public class UserProfileController_test {
 		mapper.insertUserProfile(number, name, age, gender, spec);
 	}
 	
-	@PostMapping("user/{number}")
-	public void postUserProfile(@PathVariable("number") String number, @RequestParam("name") String name, @RequestParam("age") int age, @RequestParam("gender") char gender, @RequestParam("spec") String spec) {
-		mapper.updateUserProfile(number, name, age, gender, spec);
-	}
-		
 	@DeleteMapping("/user/{number}")
 	public void deleteUserProfile(@PathVariable("number") String number) {
 		mapper.deleteUserProfile(number);
 	}
+	
+
+	//report_code, user_number, location, report_time, crime, manager_name, execute_time, reporter_type, memo
+	@PutMapping("/report/{report_code}")
+	public void putReport(@PathVariable("report_code") String report_code, @RequestParam("user_number") String user_number,
+						  @RequestParam("location") String location, @RequestParam("report_time") String report_time,
+						  @RequestParam("crime") String crime, @RequestParam("manager_name") String manager_name,
+						  @RequestParam("execute_time") String execute_time, @RequestParam("reporter_type") char reporter_type,
+						  @RequestParam("memo") String memo){
+		mapper.insertReport(report_code, user_number, location, report_time, crime, manager_name, execute_time, reporter_type, memo);
+	}
+	
 	
 	@GetMapping("/report_location/all")
 	public List<ReportLocation> getReportLocationList() {
@@ -109,7 +121,14 @@ public class UserProfileController_test {
 	
 	// user_number, crime, manager_name, execute_time <= report_code
 	@PostMapping("update-report/{report_code}")
-	public void postReportSpec(@PathVariable("report_code") String report_code, @RequestParam("user_number") String user_number, @RequestParam("crime") String crime, @RequestParam("manager_name") String manager_name, @RequestParam("execute_time") String execute_time) {
-		mapper.updateReportSpec(report_code, user_number, crime, manager_name, execute_time);
+	public void postReportSpec(
+			@PathVariable("report_code") String report_code
+			, @RequestParam("user_number") String user_number
+			, @RequestParam("memo") String memo
+			, @RequestParam("crime") String crime
+			, @RequestParam("manager_name") String manager_name
+			, @RequestParam("execute_time") String execute_time
+			) {
+		mapper.updateReportSpec(report_code, user_number, memo, crime, manager_name, execute_time);
 	}
 }

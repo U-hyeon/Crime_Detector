@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+//monitoring object에 표시할 정보
 public class ReportMonitorObj {
 	//report_time, location, gender, age, name, crime, reporter_type
 	private String report_code;
