@@ -60,6 +60,26 @@ public interface UserProfileMapper {
 	@Select("SELECT report_code, user_name, user_gender, user_age, report_time, REPORTS.user_number, memo, crime, manager_name, execute_time FROM REPORTS INNER JOIN USERS ON REPORTS.user_number = USERS.user_number WHERE report_code=#{report_code}")
 	ReportSpec getReportSpec(@Param("report_code") String report_code);
 	
+	@Select("SELECT COUNT(*) FROM CRIME_DETECTOR.REPORTS "
+			+ "WHERE ABS( CONVERT(float, substring_index(REPORTS.location, ', ', 1)) - CONVERT(float, #{latitude}) ) <= CONVERT(float, #{areaDistance}) "
+			+ "AND ABS( CONVERT(float, substring_index(REPORTS.location, ', ', -1)) - CONVERT(float, #{longitude}) ) <= CONVERT(float, #{areaDistance}) "
+			+ "AND TIMESTAMPDIFF(DAY, STR_TO_DATE(REPORTS.report_time, '%Y%m%d_%H%i%s'), STR_TO_DATE(#{presentTime}, '%Y%m%d_%H%i%s')) <= #{periodDay} ")
+	int getCountReportsOnArea(@Param("latitude") String latitude
+			, @Param("longitude") String longitude
+			, @Param("areaDistance") String areaDistance
+			, @Param("periodDay") String periodDay
+			, @Param("presentTime") String presentTime
+			);
+	
+	@Select("SELECT COUNT(*) FROM CRIME_DETECTOR.REPORTS "
+			+ "WHERE ABS( CONVERT(float, substring_index(REPORTS.location, ', ', 1)) - CONVERT(float, #{latitude}) ) <= CONVERT(float, #{areaDistance}) "
+			+ "AND ABS( CONVERT(float, substring_index(REPORTS.location, ', ', -1)) - CONVERT(float, #{longitude}) ) <= CONVERT(float, #{areaDistance}) "
+			+ "AND REPORTS.execute_time = '' OR REPORTS.execute_time = 'null'")
+	int getCountReportsOnAreaOnGoing(@Param("latitude") String latitude
+			, @Param("longitude") String longitude
+			, @Param("areaDistance") String areaDistance
+			);
+	
 	// user_number, crime, manager_name, execute_time, memo <= report_code
 	@Update("UPDATE REPORTS SET user_number=#{user_number}, crime=#{crime}, manager_name=#{manager_name}, execute_time=#{execute_time}, memo=#{memo} WHERE report_code=#{report_code}")
 	int updateReportSpec(@Param("report_code") String report_code
