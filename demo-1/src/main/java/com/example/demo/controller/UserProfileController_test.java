@@ -58,10 +58,12 @@ public class UserProfileController_test {
 	@PutMapping("/report/{report_code}")
 	public void putReport(@PathVariable("report_code") String report_code, @RequestParam("user_number") String user_number,
 						  @RequestParam("location") String location, @RequestParam("report_time") String report_time,
-						  @RequestParam("crime") String crime, @RequestParam("manager_name") String manager_name,
-						  @RequestParam("execute_time") String execute_time, @RequestParam("reporter_type") char reporter_type,
-						  @RequestParam("memo") String memo){
-		mapper.insertReport(report_code, user_number, location, report_time, crime, manager_name, execute_time, reporter_type, memo);
+						  @RequestParam("crime") String crime){
+		UserProfile ifExists = mapper.getUserProfile(user_number);
+		if (ifExists==null) {
+			mapper.insertUserProfile(user_number, "신원미상", 0, '?', "");
+		}
+		mapper.insertReport(report_code, user_number, location, report_time, crime);
 	}
 	
 	
@@ -140,6 +142,15 @@ public class UserProfileController_test {
 						@RequestParam("periodDay") String periodDay,
 						@RequestParam("presentTime") String presentTime
 				) {
-		return Integer.valueOf(mapper.getCountReportsOnArea(latitude, longitude, areaDistance, periodDay, presentTime));
+		return Integer.valueOf( mapper.getCountReportsOnArea(latitude, longitude, areaDistance, periodDay, presentTime ));
+	}
+	
+	@GetMapping("/count-events/{latitude}/{longitude}/{areaDistance}")
+	public int getCurrentDanger(
+						@RequestParam("latitude") String latitude,
+						@RequestParam("longitude") String longitude,
+						@RequestParam("areaDistance") String areaDistance
+				) {
+		return Integer.valueOf( mapper.getCountReportsOnAreaOnGoing(latitude, longitude, areaDistance) );
 	}
 }

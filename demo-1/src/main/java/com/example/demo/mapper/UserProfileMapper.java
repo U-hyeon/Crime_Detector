@@ -29,14 +29,13 @@ public interface UserProfileMapper {
 	@Insert("INSERT INTO CRIME_DETECTOR.REPORTS " +
 			"VALUES(" +
 			" #{report_code}, #{user_number}, #{location}" +
-			", #{report_time}, #{crime}, #{manager_name}" +
-			", #{execute_time}, #{reporter_type}, #{memo} " +
+			", #{report_time}, #{crime}, ''" +
+			", '', 'P', (SELECT user_spec from USERS WHERE user_number=#{user_number} " +
 			")"
 	)
 	int insertReport(
 			@Param("report_code") String report_code, @Param("user_number") String user_number, @Param("location") String location
-			, @Param("report_time") String report_time, @Param("crime") String crime, @Param("manager_name") String manager_name
-			, @Param("execute_time") String execute_time, @Param("reporter_type") char reporter_type, @Param("memo") String memo
+			, @Param("report_time") String report_time, @Param("crime") String crime
 			);
 
 	@Update("UPDATE CRIME_DETECTOR.USERS SET user_name=#{name}, user_age=#{age}, user_gender=#{gender}, user_spec=#{spec} WHERE user_number=#{number}")
