@@ -134,7 +134,7 @@ public class UserProfileController_test {
 		mapper.updateReportSpec(report_code, user_number, memo, crime, manager_name, execute_time);
 	}
 	
-	@GetMapping("/count-events/{latitude}/{longitude}/{areaDistance}/{periodDay}/{presentTime}")
+	@GetMapping("/count-history/{latitude}/{longitude}/{areaDistance}/{periodDay}/{presentTime}")
 	public int getHistoryOfArea(
 						@RequestParam("latitude") String latitude,
 						@RequestParam("longitude") String longitude,
