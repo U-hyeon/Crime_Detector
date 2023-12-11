@@ -66,6 +66,17 @@ public class UserProfileController_test {
 		mapper.insertReport(report_code, user_number, location, report_time, crime);
 	}
 	
+	@PostMapping("/update-crime/{report_code}")
+	public void postReportCrime(@PathVariable("report_code") String report_code
+			, @RequestParam("crime") String crime) {
+		mapper.updateReportCrime(report_code, crime);
+	}
+	@PostMapping("/update-reporterType/{report_code}")
+	public void postReporterType(@PathVariable("report_code") String report_code
+			, @RequestParam("reporter_type") String reporter_type) {
+		mapper.updateReporterType(report_code, reporter_type);
+	}
+	
 	
 	@GetMapping("/report_location/all")
 	public List<ReportLocation> getReportLocationList() {

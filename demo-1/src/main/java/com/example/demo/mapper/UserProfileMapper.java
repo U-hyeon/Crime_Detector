@@ -30,13 +30,19 @@ public interface UserProfileMapper {
 			"VALUES(" +
 			" #{report_code}, #{user_number}, #{location}" +
 			", #{report_time}, #{crime}, ''" +
-			", '', 'P', (SELECT user_spec from USERS WHERE user_number=#{user_number} " +
+			", '', 'P', (SELECT user_spec from USERS WHERE user_number=#{user_number}) " +
 			")"
 	)
 	int insertReport(
 			@Param("report_code") String report_code, @Param("user_number") String user_number, @Param("location") String location
 			, @Param("report_time") String report_time, @Param("crime") String crime
 			);
+	
+	@Update("UPDATE CRIME_DETECTOR.REPORTS SET crime=#{crime} WHERE report_code=#{report_code}")
+	int updateReportCrime(@Param("report_code") String report_code, @Param("crime") String crime);
+	
+	@Update("UPDATE CRIME_DETECTOR.REPORTS SET reporter_type=#{reporter_type} WHERE report_code=#{report_code}")
+	int updateReporterType(@Param("report_code") String report_code, @Param("reporter_type") String reporter_type);
 
 	@Update("UPDATE CRIME_DETECTOR.USERS SET user_name=#{name}, user_age=#{age}, user_gender=#{gender}, user_spec=#{spec} WHERE user_number=#{number}")
 	int updateUserProfile(@Param("number") String number, @Param("name") String name, @Param("age") int age, @Param("gender") char gender, @Param("spec") String spec);
